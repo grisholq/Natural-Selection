@@ -14,6 +14,7 @@ public class RestToFoodSearchStateSystem : IEcsRunSystem
             if(energyComponent.Energy <= energyTreshold)
             {
                 _restingCreaturesFilter.GetEntity(i).Get<FoodSearchState>();
+                _restingCreaturesFilter.GetEntity(i).Del<RestState>();
             }            
         }
     }

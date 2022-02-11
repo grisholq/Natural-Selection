@@ -6,6 +6,12 @@ public class FoodSearchToPersuitStateSystem : IEcsRunSystem
 
     public void Run()
     {
-        
+        foreach (var i in _creaturesFoodFilter)
+        {
+            var energyComponent = _creaturesFoodFilter.Get2(i);
+
+            _creaturesFoodFilter.GetEntity(i).Get<FoodPersuitState>();
+            _creaturesFoodFilter.GetEntity(i).Del<FoodSearchState>();
+        }
     }
 }
