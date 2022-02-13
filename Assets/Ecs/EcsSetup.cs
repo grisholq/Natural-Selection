@@ -18,20 +18,20 @@ public class EcsSetup : MonoBehaviour
     private void AddSystems()
     {
         _systems.Add(new RestToFoodSearchStateSystem());
-        _systems.Add(new CreatureRestStateChangerSystem());
+        _systems.Add(new FoodSeachToRestStateSystem());
+        _systems.Add(new FoodSearchToPersuitStateSystem());
+        _systems.Add(new FoodPersuitToRestStateSystem());
 
-        _systems.Add(new InizializeEntityRequestSystem());
+        _systems.Add(new PatrolSystem());
+        _systems.Add(new PersuitSystem());
 
         _systems.Add(new NavAgentSetDestinationSystem());
         _systems.Add(new NavAgentStopSystem());
 
-        _systems.Add(new HealthHealSystem());
-        _systems.Add(new HealthDamageSystem());
-        _systems.Add(new HealthRegenerationSystem());
-        _systems.Add(new HealthDeathSystem());
-
         _systems.Add(new EnergyAddSystem());
         _systems.Add(new EnergyDecreaseSystem());
+
+        _systems.Add(new InizializeEntityRequestSystem());
     }
 
     private void AddOneFrames()

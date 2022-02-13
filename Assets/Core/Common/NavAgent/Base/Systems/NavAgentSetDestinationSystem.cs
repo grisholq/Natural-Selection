@@ -11,7 +11,7 @@ public class NavAgentSetDestinationSystem : IEcsRunSystem
             var agent = _destinationEventsFilter.Get1(i);
             var destinationEvent = _destinationEventsFilter.Get2(i);
 
-            agent.NavMeshAgent.SetDestination(destinationEvent.Destination);
+            agent.NavAgent.SetDestination(destinationEvent.Destination);
 
             _destinationEventsFilter.GetEntity(i).Del<NavAgentDestinationEvent>();
         }

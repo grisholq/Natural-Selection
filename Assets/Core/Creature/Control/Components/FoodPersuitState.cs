@@ -2,5 +2,5 @@ using UnityEngine;
 
 public struct FoodPersuitState
 {
-    public Transform foodTransform;
+    public Transform FoodTransform;
 }

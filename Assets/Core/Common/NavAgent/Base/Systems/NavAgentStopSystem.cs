@@ -11,7 +11,7 @@ public class NavAgentStopSystem : IEcsRunSystem
         {
             var agent = _stopEventsFilter.Get1(i);
 
-            agent.NavMeshAgent.isStopped = true;
+            agent.NavAgent.isStopped = true;
 
             _stopEventsFilter.GetEntity(i).Del<NavAgentStopEvent>();
         }
