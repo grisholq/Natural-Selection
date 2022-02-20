@@ -2,21 +2,24 @@ using UnityEngine;
 using Leopotam.Ecs;
 using System.Collections.Generic;
 
-public class CreatureFoodSearchSystem : IEcsRunSystem
+public class FoodSearchSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<CreatureTag, TransformComponent, FillComponent, FoodSearchState> _searchingCreaturesFilter;
+    private readonly EcsFilter<TransformComponent, FeelComponent, FoodSearchState> _searchingCreaturesFilter;
 
     public void Run()
     {
         foreach (var i in _searchingCreaturesFilter)
         {
-            var transformComponent = _searchingCreaturesFilter.Get2(i);
-            var fillComponent = _searchingCreaturesFilter.Get3(i);
+            
+
+            var transformComponent = _searchingCreaturesFilter.Get1(i);
+            var fillComponent = _searchingCreaturesFilter.Get2(i);
 
             List<EcsEntity> entities = GetEntitiesInRange(transformComponent.Transform.position, fillComponent.Range);
 
             if (TryGetFoodSourceFromEntities(entities, out EcsEntity foodSource))
             {
+                
                 Transform foodTransform = foodSource.Get<TransformComponent>().Transform;
 
                 ref var foodEvent = ref _searchingCreaturesFilter.GetEntity(i).Get<FoodFoundEvent>();
@@ -25,18 +28,19 @@ public class CreatureFoodSearchSystem : IEcsRunSystem
         }
     }
 
-    private bool TryGetFoodSourceFromEntities(List<EcsEntity> entities, out EcsEntity foodSource)
+    private bool TryGetFoodSourceFromEntities(List<EcsEntity> entities, out EcsEntity foodEntity)
     {
         foreach (var entity in entities)
         {
-            if(entity.Has<TransformComponent>() && entity.Has<FoodSourceComponent>())
+            
+            if (entity.Has<TransformComponent>() && entity.Has<FoodTag>())
             {
-                foodSource = entity;
+                foodEntity = entity;
                 return true;
             }
         }
 
-        foodSource = new EcsEntity();
+        foodEntity = new EcsEntity();
         return false;
     }
 
@@ -48,7 +52,7 @@ public class CreatureFoodSearchSystem : IEcsRunSystem
 
         foreach (var collider in colliders)
         {
-            if(collider.TryGetComponent(out EntityReference reference))
+            if (collider.TryGetComponent(out EntityReference reference))
             {
                 entities.Add(reference.Entity);
             }

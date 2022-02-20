@@ -5,4 +5,5 @@ using UnityEngine.AI;
 public struct NavAgentComponent
 {
     public NavMeshAgent NavAgent;
+    public float SampleRadius;
 }

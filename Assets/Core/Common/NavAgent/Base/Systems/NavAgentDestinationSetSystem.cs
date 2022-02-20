@@ -1,8 +1,8 @@
 using Leopotam.Ecs;
 
-public class NavAgentSetDestinationSystem : IEcsRunSystem
+public class NavAgentDestinationSetSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<NavAgentComponent, NavAgentDestinationEvent> _destinationEventsFilter = null;
+    private readonly EcsFilter<NavAgentComponent, NavAgentDestinationEvent>.Exclude<NavAgentDestinationBlock> _destinationEventsFilter = null;
 
     public void Run()
     {
@@ -12,8 +12,6 @@ public class NavAgentSetDestinationSystem : IEcsRunSystem
             var destinationEvent = _destinationEventsFilter.Get2(i);
 
             agent.NavAgent.SetDestination(destinationEvent.Destination);
-
-            _destinationEventsFilter.GetEntity(i).Del<NavAgentDestinationEvent>();
         }
     }
 }

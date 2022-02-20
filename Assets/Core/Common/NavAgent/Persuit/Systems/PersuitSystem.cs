@@ -1,4 +1,3 @@
-using UnityEngine;
 using Leopotam.Ecs;
 
 public class PersuitSystem : IEcsRunSystem

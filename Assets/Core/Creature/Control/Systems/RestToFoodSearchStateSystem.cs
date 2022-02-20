@@ -1,3 +1,4 @@
+using UnityEngine;
 using Leopotam.Ecs;
 
 public class RestToFoodSearchStateSystem : IEcsRunSystem
@@ -9,12 +10,13 @@ public class RestToFoodSearchStateSystem : IEcsRunSystem
         foreach (var i in _restingCreaturesFilter)
         {
             var energyComponent = _restingCreaturesFilter.Get2(i);
-            float energyTreshold = CreatureSettings.CreatureSearchEnergyTreshold;
+            
 
-            if(energyComponent.Energy <= energyTreshold)
+            if(energyComponent.Energy < energyComponent.HungerThreshold)
             {
                 _restingCreaturesFilter.GetEntity(i).Get<FoodSearchState>();
                 _restingCreaturesFilter.GetEntity(i).Del<RestState>();
+                Debug.Log("From rest to search");
             }            
         }
     }

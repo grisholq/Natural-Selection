@@ -1,4 +1,4 @@
 public struct PatrolComponent
 {
-    public float PatrolStep;
+    public float PatrolRadius;
 }

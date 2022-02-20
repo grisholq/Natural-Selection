@@ -2,18 +2,23 @@ using Leopotam.Ecs;
 
 public class EnergyAddSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<EnergyComponent, EnergyAddEvent> _addEventsFilter;
+    private readonly EcsFilter<EntityComponent, EnergyAddEvent> _addEventsFilter;
 
     public void Run()
     {
-        foreach (var i in _addEventsFilter)
+        for (int i = 0; i < _addEventsFilter.GetEntitiesCount(); i++)
         {
-            ref var energyComponent = ref _addEventsFilter.Get1(i);
+            ref var entityComponent = ref _addEventsFilter.Get1(i);
+            ref var entity = ref entityComponent.Entity;
+
+            if (entity.Has<EnergyComponent>() == false) continue;
+
+            ref var energyComponent = ref entity.Get<EnergyComponent>();
             var addEvent = _addEventsFilter.Get2(i);
 
             energyComponent.Energy += addEvent.EnergyAdd;
 
-            _addEventsFilter.GetEntity(i).Del<EnergyAddEvent>();
+            _addEventsFilter.GetEntity(i).Destroy();
         }
     }
 }

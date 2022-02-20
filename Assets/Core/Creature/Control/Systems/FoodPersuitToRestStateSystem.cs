@@ -1,3 +1,4 @@
+using UnityEngine;
 using Leopotam.Ecs;
 
 public class FoodPersuitToRestStateSystem : IEcsRunSystem
@@ -10,11 +11,12 @@ public class FoodPersuitToRestStateSystem : IEcsRunSystem
         {
             var energyComponent = _foodPersuitersFilter.Get2(i);
 
-            if (energyComponent.Energy >= CreatureSettings.CreatureSearchEnergyTreshold)
+            if (energyComponent.Energy > energyComponent.HungerThreshold)
             {
-                EcsEntity entity = _foodPersuitersFilter.GetEntity(i);
-                entity.Del<FoodPersuitState>();
-                entity.Get<RestState>();
+                _foodPersuitersFilter.GetEntity(i).Del<FoodPersuitState>();
+                _foodPersuitersFilter.GetEntity(i).Get<RestState>();
+
+                Debug.Log("From persuit to rest");
             }
         }
     }

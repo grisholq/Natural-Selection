@@ -1,3 +1,4 @@
+using UnityEngine;
 using Leopotam.Ecs;
 
 public class FoodSearchToPersuitStateSystem : IEcsRunSystem
@@ -8,12 +9,15 @@ public class FoodSearchToPersuitStateSystem : IEcsRunSystem
     {
         foreach (var i in _creaturesFoodFilter)
         {
+
             var foodEvent = _creaturesFoodFilter.Get3(i);
         
             _creaturesFoodFilter.GetEntity(i).Del<FoodSearchState>();
 
             ref var persuitState = ref _creaturesFoodFilter.GetEntity(i).Get<FoodPersuitState>();
-            persuitState.FoodTransform = foodEvent.FoodTransform; 
+            persuitState.FoodTransform = foodEvent.FoodTransform;
+
+            Debug.Log("From search to persuit");
         }
     }
 }
